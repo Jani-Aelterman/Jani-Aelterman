@@ -61,7 +61,7 @@ export default function Footer() {
                             <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
                                 AJ
                             </Typography>
-                            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2 }}>
+                            {/*<Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2 }}>
                                 Join the newsletter
                             </Typography>
                             <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
@@ -93,7 +93,7 @@ export default function Footer() {
                                 >
                                     Subscribe
                                 </Button>
-                            </Stack>
+                            </Stack>*/}
                         </Box>
                     </Box>
                     <Box

@@ -2,14 +2,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import IconButton from '@mui/material/IconButton';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 interface GitHubRepo {
     id: number;
@@ -37,6 +35,16 @@ const prints = [
 
 const skills = [
     'React', 'TypeScript', 'Node.js', 'Python', '3D Printing', 'CAD Design', 'Git', 'MUI'
+];
+
+interface PrintableModel {
+    id: string;
+    title: string;
+}
+
+const printablesItems: PrintableModel[] = [
+    { id: '1428287', title: 'Bicycle Handlebar Extension', },
+    { id: '123456', title: 'Placeholder Model', },
 ];
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -160,39 +168,46 @@ export default function MainContent() {
                     3D Printing & Design
                 </Typography>
                 <Typography color="text.secondary" sx={{ mb: 4 }}>
-                    My latest designs and prints uploaded to Printables/Thingiverse.
+                    My latest designs from Printables.
                 </Typography>
                 <Grid container spacing={2}>
-                    {prints.map((print, index) => (
+                    {printablesItems.map((item, index) => (
                         <Grid key={index} size={{ xs: 12, md: 6 }}>
                             <StyledCard
                                 variant="outlined"
-                                onFocus={() => handleFocus(index + projects.length)} // Offset index
-                                onBlur={handleBlur}
-                                tabIndex={0}
-                                className={focusedCardIndex === (index + projects.length) ? 'Mui-focused' : ''}
+                                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                             >
-                                <CardMedia
-                                    component="img"
-                                    alt={print.title}
-                                    image={print.img}
+                                <Box
                                     sx={{
-                                        aspectRatio: '16 / 9',
-                                        borderBottom: '1px solid',
-                                        borderColor: 'divider',
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        bgcolor: 'background.default',
+                                        pt: 2,
+                                        pb: 0
                                     }}
-                                />
-                                <StyledCardContent>
+                                >
+                                    <Box
+                                        component="iframe"
+                                        src={`https://www.printables.com/embed/${item.id}`}
+                                        width="300"
+                                        height="340"
+                                        scrolling="no"
+                                        sx={{
+                                            border: 'none',
+                                            borderRadius: 1,
+                                            overflow: 'hidden',
+                                            backgroundColor: 'background.paper',
+                                            display: 'block'
+                                        }}
+                                        title={`Printables Embed ${item.id}`}
+                                        loading="lazy"
+                                    />
+                                </Box>
+                                <StyledCardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
                                     <Typography gutterBottom variant="h6" component="div">
-                                        {print.title}
+                                        {item.title}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" gutterBottom>
-                                        {print.description}
-                                    </Typography>
-                                    <IconButton href={print.url} target="_blank" sx={{ alignSelf: 'flex-start', mt: 1, padding: 0 }}>
-                                        <Typography variant="button" sx={{ mr: 1 }}>View Model</Typography>
-                                        <OpenInNewIcon fontSize="small" />
-                                    </IconButton>
                                 </StyledCardContent>
                             </StyledCard>
                         </Grid>
